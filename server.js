@@ -67,10 +67,10 @@ async function startServer() {
             }
         });
         
-        // app.use(express.static(path.join(__dirname, 'whatsapp-frontend/build')));
-        // app.get('*', (req, res) => {
-        //     res.sendFile(path.join(__dirname, 'whatsapp-frontend/build', 'index.html'));
-        // });
+        app.use(express.static(path.join(__dirname, 'whatsapp-frontend/build')));
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, 'whatsapp-frontend/build', 'index.html'));
+        });
 
         app.listen(port, () => {
             console.log(`Chat backend listening at http://localhost:${port}`);
