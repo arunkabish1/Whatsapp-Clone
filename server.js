@@ -18,11 +18,6 @@ async function startServer() {
         db = dbInstance;
         client = dbInstance.client;
 
-        app.use(express.static(path.join(__dirname, 'whatsapp-frontend/build')));
-        app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, 'whatsapp-frontend/build', 'index.html'));
-        });
-
         app.get('/conversations', async (req, res) => {
             try {
                 const conversations = await db.collection('processed_messages').aggregate([
@@ -57,10 +52,10 @@ async function startServer() {
             }
         });
 
+        // New API endpoint to save a new message to the database
         app.post('/messages', async (req, res) => {
             try {
                 const newMessage = req.body;
-                // Generate a unique ID for the message
                 newMessage.id = `wamid.HBgMOTE5OTY3NTc4NzIwFQIAEhgg${new ObjectId().toString()}`;
                 newMessage.from = "918329446654";
                 newMessage.status = 'sent';
@@ -72,8 +67,12 @@ async function startServer() {
                 res.status(500).json({ error: 'Failed to send message.' });
             }
         });
+        
+        app.use(express.static(path.join(__dirname, 'whatsapp-frontend/build')));
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, 'whatsapp-frontend/build', 'index.html'));
+        });
 
-        // Start the server
         app.listen(port, () => {
             console.log(`Chat backend listening at http://localhost:${port}`);
         });
