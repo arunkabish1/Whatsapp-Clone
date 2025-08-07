@@ -52,7 +52,6 @@ async function startServer() {
             }
         });
 
-        // New API endpoint to save a new message to the database
         app.post('/messages', async (req, res) => {
             try {
                 const newMessage = req.body;
