@@ -3,7 +3,7 @@ import sticker from './images/sticker.svg';
 import plus from './images/plus.svg';
 import mic from './images/mic.svg';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 const formatDate = (timestamp) => {
   if (!timestamp) return '';
@@ -128,7 +128,7 @@ const App = () => {
         <div className="flex-1 flex flex-row overflow-y-hidden">
 
           {/* Sidebar */}
-          <div className="w-2/5 min-w-[400px] max-w-[500px] flex flex-col border-r-2 border-gray-200 bg-white">
+          <div className="md:w-2/5 w-20  max-w-[500px]  border-r-2 border-gray-200 bg-white">
             <div className="flex flex-col p-3 overflow-y-auto">
               <header className="flex items-center justify-between bg-white mb-4  border-gray-200">
                 <h1 className="text-2xl font-semibold text-green-600 p-2 pl-2">WhatsApp</h1>
@@ -149,7 +149,7 @@ const App = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="  Search or start a new chat."
+                placeholder="Search or start a new chat."
                 className="mb-3 p-2  rounded-3xl bg-green-50 w-full focus:outline-none hover:ring-2 hover:ring-green-400"
               />
               <div class="flex space-x-2 mb-4 ml-2">
@@ -234,7 +234,7 @@ const App = () => {
                           className={`min-w-28 max-w-lg p-3 rounded-lg shadow-md ${msg.from === currentChat._id ? 'bg-white text-gray-800' : 'bg-green-200/85 text-gray-800'
                             }`}
                         >
-                          <p className="text-sm">{msg.text?.body || msg.text}</p>
+                          <p className="text-sm ">{msg.text?.body || msg.text}</p>
                           <div className="flex justify-end items-center text-xs mt-1">
                             <span className={`mr-1 ${msg.from === currentChat._id ? 'text-gray-500' : 'text-gray-700'}`}>
                               {formatDate(msg.timestamp)}
@@ -289,8 +289,8 @@ const App = () => {
               <div className="flex-1 flex items-center justify-center bg-green-50">
                 <div className="text-center flex flex-col items-center p-24">
                   <img src="https://static.whatsapp.net/rsrc.php/v4/y6/r/wa669aeJeom.png" alt="Download Whatsapp" className="min-w-[400px]" />
-                  <h2 className="text-4xl font-semibold text-gray-500 mb-2 mt-2">Download WhatsApp for Windows</h2>
-                  <p className='text-sm text-gray-500'>Make calls, share your screen and get a faster experience when you download the Windows app.</p>
+                  <h2 className="text-4xl font-semibold text-gray-500 mb-2 mt-2">Download WhatsApp for Mobile</h2>
+                  <p className='text-sm text-gray-500'>Make calls, share your screen and get a faster experience when you download the Mobile app.</p>
                   <button className="mt-4 px-6 py-2 bg-green-600 font-bold text-white rounded-3xl hover:bg-green-500 transition-colors duration-200">
                     Download
                   </button>
