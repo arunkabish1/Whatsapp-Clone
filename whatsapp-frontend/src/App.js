@@ -3,10 +3,6 @@ import sticker from './images/sticker.svg';
 import plus from './images/plus.svg';
 import mic from './images/mic.svg';
 
-const API_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:3001";
-
-
 const formatDate = (timestamp) => {
   if (!timestamp) return '';
   const date = new Date(timestamp.toString().length === 10 ? timestamp * 1000 : timestamp);
@@ -75,7 +71,7 @@ const App = () => {
 
   const fetchConversations = async () => {
     try {
-      const response = await fetch(`${API_URL}/conversations`);
+      const response = await fetch('http://localhost:3001/conversations');
       const data = await response.json();
       setConversations(data);
     } catch (error) {
@@ -85,7 +81,7 @@ const App = () => {
 
   const fetchMessages = async (wa_id) => {
     try {
-      const response = await fetch(`${API_URL}/${wa_id}`);
+      const response = await fetch(`http://localhost:3001/messages/${wa_id}`);
       const data = await response.json();
       setMessages(data);
     } catch (error) {
@@ -104,16 +100,11 @@ const App = () => {
     };
 
     try {
-      const response = await fetch(`${API_URL}/messages`, {
+      const response = await fetch('http://localhost:3001/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(messageToSend),
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const sentMessage = await response.json();
       setMessages(prevMessages => [...prevMessages, sentMessage]);
       setNewMessage('');
@@ -121,7 +112,6 @@ const App = () => {
     } catch (error) {
       console.error('Failed to send message:', error);
     }
-
   };
 
   const filteredConversations = conversations.filter((convo) =>
