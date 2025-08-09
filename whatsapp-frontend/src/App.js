@@ -3,6 +3,8 @@ import sticker from './images/sticker.svg';
 import plus from './images/plus.svg';
 import mic from './images/mic.svg';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
 const formatDate = (timestamp) => {
   if (!timestamp) return '';
   const date = new Date(timestamp.toString().length === 10 ? timestamp * 1000 : timestamp);
@@ -71,7 +73,8 @@ const App = () => {
 
   const fetchConversations = async () => {
     try {
-      const response = await fetch('http://localhost:3001/conversations');
+      const response = await fetch(`${API_BASE_URL}/conversations`);
+
       const data = await response.json();
       setConversations(data);
     } catch (error) {
@@ -81,7 +84,7 @@ const App = () => {
 
   const fetchMessages = async (wa_id) => {
     try {
-      const response = await fetch(`http://localhost:3001/messages/${wa_id}`);
+      const response = await fetch(`${API_BASE_URL}/messages/${wa_id}`);
       const data = await response.json();
       setMessages(data);
     } catch (error) {
@@ -100,7 +103,7 @@ const App = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/messages', {
+      const response = await fetch(`${API_BASE_URL}/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(messageToSend),
